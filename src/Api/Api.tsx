@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export const api = axios.create({
+export const coinApi = axios.create({
   method: 'GET',
   url: 'https://coingecko.p.rapidapi.com/coins/markets',
   params: {vs_currency: 'usd', page: '1', per_page: '100', order: 'market_cap_desc'},
