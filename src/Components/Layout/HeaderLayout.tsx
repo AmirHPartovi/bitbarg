@@ -6,6 +6,7 @@ import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import IconButton from '@mui/material/IconButton/IconButton';
 import { Box } from '@mui/material';
 import { ReactComponent as HeaderLogo } from '../../Assets/Images/header-logo.svg'
+import {Link} from 'react-router-dom'
 
 type Props = {}
 
@@ -14,11 +15,15 @@ const HeaderLayout = (props: Props) => {
     <AppBar  sx={{bgcolor:'#fff',boxShadow:'0', height:'64px',alignItems:'center'}}>
         <Grid container direction={'row'} justifyContent={'space-around'} alignItems={'center'}>
             <Box m={2}>
-                <Button sx={{color:'gray'}} startIcon={<MenuRoundedIcon/>}>{'منو'}</Button>
-                <Button sx={{color:'gray'}} >خانه</Button>
-                <Button sx={{color:'gray'}} >قیمت لحظه ای</Button>
-                <Button sx={{color:'gray'}} >کارمزد ها</Button>
-                <Button sx={{color:'gray'}} >پرتفوی</Button>
+                 <Button sx={{color:'gray'}} startIcon={<MenuRoundedIcon/>}>{'منو'}</Button>
+                <Link to={'/'}>
+                  <Button sx={{color:'gray'}} >خانه</Button>
+                </Link>
+                <Link to={'/livePrice'}>
+                  <Button sx={{color:'gray'}} >قیمت لحظه ای</Button>
+                </Link> 
+                  <Button sx={{color:'gray'}} >کارمزد ها</Button>
+                  <Button sx={{color:'gray'}} >پرتفوی</Button>
             </Box>
             <Box m={2}>
                 <Button variant={'contained'}>ورود/ثبت نام</Button>
