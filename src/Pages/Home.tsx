@@ -26,7 +26,7 @@ const Home = (props: Props) => {
     },[])
    
     
-    console.log(coinInfo)
+    
     const handleChange = () => {
 
     }
@@ -43,7 +43,7 @@ const Home = (props: Props) => {
                     disablePortal
                     id="combo-box-demo"
                     
-                    options={coinInfo.map((item:any)=> item.id)}
+                    options={coinInfo.map((item:any)=><><i className={item.image}/> {item.id}</>)}
                     
                     sx={{ width: 300 }}
                     renderInput={(params) => <TextField {...params} label="ارز" />}

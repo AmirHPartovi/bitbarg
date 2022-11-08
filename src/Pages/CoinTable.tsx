@@ -10,7 +10,10 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import axios from 'axios'
-type Props = {}
+
+type Props = {
+    
+}
 
 const CoinTable = (props: Props) => {
     const Api = {
@@ -45,40 +48,29 @@ const CoinTable = (props: Props) => {
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
                     <TableHead>
-                    <TableRow>
-                        
-                        <TableCell align="right">نشان کردن</TableCell>
-                        <TableCell align="right">تغییرات</TableCell>
-                        <TableCell align="right">نمودار</TableCell>
-                        <TableCell align="right">قیمت فروش</TableCell>
-                        <TableCell align="right">قیمت خرید</TableCell>
-                        <TableCell align="right"> ارز دیجیتال</TableCell>
+                    <TableRow sx={{height:64,background:"#e0e0e0"}}>
+                        <TableCell align="center">درصدتغییرات</TableCell>
+                        <TableCell align="center">تغییرات</TableCell>
+                        <TableCell align="center">پایین ترین قیمت</TableCell>
+                        <TableCell align="center"> بالاترین قیمت</TableCell>
+                        <TableCell align="center">قیمت فعلی</TableCell>
+                        <TableCell align="left"> ارز دیجیتال</TableCell>
+                        <TableCell align="left">نماد</TableCell>
                     </TableRow>
                     </TableHead>
                     <TableBody>
                     {coinInfo.map((row:any) => (
                         <TableRow
                         key={row.name}
-                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                        sx={{ '&:last-child td, &:last-child th': { border: 0 },height:64 }}
                         >
-                        <TableCell component="th" scope="row">
-                            {row.name}
-                        </TableCell>
-                        <TableCell align="right">{row.calories}</TableCell>
-                        <TableCell align="right">{row.fat}</TableCell>
-                        <TableCell align="right">{row.carbs}</TableCell>
-                        <TableCell align="right">{row.protein}</TableCell>
-                        <TableCell align="right">{row.current_price}$</TableCell>
-                        <TableCell align="right">
-                            <Grid>
-                            <Grid>
-                                <img alt={''} src={`row.image`} />
-                            </Grid>
-                            <Grid>
-                                {row.name}
-                            </Grid>
-                            </Grid>
-                        </TableCell>
+                        <TableCell sx={{direction:'ltr' }} align="center">{row.price_change_percentage_24h}</TableCell>
+                        <TableCell sx={{direction:'ltr' }} align="center">{row.price_change_24h} $</TableCell>
+                        <TableCell sx={{direction:'ltr' }} align="center">{row.low_24h} $</TableCell>
+                        <TableCell sx={{direction:'ltr' }} align="center">{row.high_24h} $</TableCell>
+                        <TableCell sx={{direction:'ltr' }} align="center">{row.current_price} $</TableCell>
+                        <TableCell sx={{direction:'ltr' }} align="left">{row.name}</TableCell>
+                        <TableCell align="left"><img src={row.image} style={{height:60}}/></TableCell>
                         </TableRow>
                     ))}
                     </TableBody>
