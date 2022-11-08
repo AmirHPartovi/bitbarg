@@ -1,6 +1,7 @@
 import { Autocomplete, TextField } from '@mui/material'
 import Grid from '@mui/material/Grid/Grid'
 import React, { useState , useEffect } from 'react'
+import CoinTable from './CoinTable'
 import axios from 'axios'
 type Props = {
     
@@ -18,7 +19,7 @@ const Home = (props: Props) => {
       };
     const [coin,setCoin]=useState('bitcoin')
     const [coinInfo,setCoinInfo] = useState([])
-    const [coinForm , setCoinForm]=useState({coin:'',amount:1,price:0})
+    const [form , setForm]=useState({type:'',amount:1,price:0})
     useEffect(()=>{
         axios.request(Api).then((response)=>{
             setCoinInfo(response.data)
@@ -27,8 +28,8 @@ const Home = (props: Props) => {
    
     
     
-    const handleChange = () => {
-
+    const handleChange = (e:any) => {
+        setForm({...form,[e.target.name]:e.target.value})
     }
   return (
     <Grid container direction={'column'} alignItems={'center'} justifyContent={'center'}>
@@ -36,19 +37,20 @@ const Home = (props: Props) => {
             <Grid item mt={16}>
                 <img width={'272px'} height={'100%'} alt='' src='https://bitbarg.com/_next/image?url=https%3A%2F%2Fcdn.bitbarg.com%2Flogo%2Fgg9T0rL6onGUADvozpUAXONvwJF3NR1KKrJMeZ0h.png&w=1920&q=75'/>
             </Grid>
-            <form>
-                <TextField variant={'outlined'}  label={'قیمت'}  name={'coinName'}></TextField>
-                <TextField variant={'outlined'}  label={'مقدار'}  name={'amount'}></TextField>
+            <form style={{display:'flex',flexDirection:'row'}}>
+                <TextField variant={'outlined'}  label={'قیمت'}         value={coinInfo.filter((item:any)=>item.name.toUpperCase()===form.type.toUpperCase()).map((item:any)=>item.current_price * form.amount)} name='price'></TextField>
+                <TextField variant={'outlined'}  label={'مقدار'}       onChange={handleChange} value={form.amount} name='amount'></TextField>
+                {/* <TextField variant={'outlined'}  label={'ارز دیجیتال'} onChange={handleChange} value={form.type} name='type'></TextField> */}
                 <Autocomplete
-                    disablePortal
-                    id="combo-box-demo"
-                    
-                    options={coinInfo.map((item:any)=><><i className={item.image}/> {item.id}</>)}
-                    
-                    sx={{ width: 300 }}
-                    renderInput={(params) => <TextField {...params} label="ارز" />}
-                    />
+                    onChange={handleChange}
+                    sx={{width:225}}
+                    options={coinInfo.map((item:any)=>item.name)}
+                    renderInput={(params) => <TextField {...params} variant={'outlined'}  label={'ارز دیجیتال'} onSelect={handleChange} value={form.type} name='type'/>}
+                  />
             </form>
+        </Grid>
+        <Grid  xs={12} my={64}>
+        <CoinTable/>
         </Grid>
     </Grid>
   )
