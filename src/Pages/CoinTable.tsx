@@ -31,7 +31,10 @@ const CoinTable = (props: Props) => {
             setCoinInfo(response.data)
         })
     },[])
-    console.log(coinInfo)
+    const [serch,setSerch] =useState<string>('')
+    const handleSearch = (e:any) => {
+        setSerch(e.target.value)
+    }
 
   return (
     <Grid container direction={'column'} alignItems={'center'} sx={{background:"#e0e0e0",width:'100%'}}>
@@ -42,7 +45,7 @@ const CoinTable = (props: Props) => {
             </Typography>
             </Grid>
             <Grid container p={2} alignItems={'flex-start'}>
-                <TextField variant={'outlined'} label={'جستجو...'}></TextField>
+                <TextField type={'text'} onChange={handleSearch} variant={'outlined'} label={'جستجو...'}></TextField>
             </Grid>
             <Grid container p={2} alignItems={'flex-start'}>
             <TableContainer component={Paper}>
@@ -59,7 +62,7 @@ const CoinTable = (props: Props) => {
                     </TableRow>
                     </TableHead>
                     <TableBody>
-                    {coinInfo.map((row:any) => (
+                    {coinInfo.filter((row:any) => row.id.toUpperCase().includes(serch.toUpperCase())).map((row:any) => (
                         <TableRow
                         key={row.name}
                         sx={{ '&:last-child td, &:last-child th': { border: 0 },height:64 }}
@@ -70,7 +73,7 @@ const CoinTable = (props: Props) => {
                         <TableCell sx={{direction:'ltr' }} align="center">{row.high_24h} $</TableCell>
                         <TableCell sx={{direction:'ltr' }} align="center">{row.current_price} $</TableCell>
                         <TableCell sx={{direction:'ltr' }} align="left">{row.name}</TableCell>
-                        <TableCell align="left"><img src={row.image} style={{height:60}}/></TableCell>
+                        <TableCell align="left"><img src={row.image} style={{height:48}}/></TableCell>
                         </TableRow>
                     ))}
                     </TableBody>
